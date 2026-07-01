@@ -4,7 +4,9 @@
 
 > Weekly context, on autopilot.
 
-A small collection of agent skills for product managers. Each one automates the busywork that eats a PM's week — reconstructing what happened, chasing context across tools, writing the recap — so the time you keep goes to the part only you can do: deciding what matters next.
+**[View the live demo →](https://christinexrz.github.io/skills/)**
+
+PMs are like context routers. Your week is scattered across Slack, your calendar, meeting notes, and the team's commits. These skills pull the fragmented work context into one short brief, check it against your goals, and evaluate how you can be more effective.
 
 The bet is simple. AI doesn't replace a PM's judgment; it amplifies it. A 10X PM isn't one who works 10x harder. It's one who spends zero minutes on the things a machine should do, and all of them on the things it can't.
 
@@ -18,13 +20,16 @@ npx skills@latest add christinexrz/skills
 
 This works with any agent that supports the [skills](https://skills.sh) format (Claude Code, etc.). It pulls every skill in this repo into your agent.
 
+## How it works
+
+1. **Onboard once** — the first run asks a few questions (your channels, calendar, notes folder, repos, and goals) to customize and set up the skill. No config file to hand-edit.
+2. **Gather the week** — pulls the last 7 days of context from Slack, Calendar, Notes, and Git repos — the 4 scattered sources that make up a PM's week — into one readable brief.
+3. **Analyze your effectiveness** — checks your week against your goals and the 3 Levels of Product Work (Execution, Strategy, Optics — from Shreyas), shows where your time went, and recommends how you can be more effective.
+4. **One brief** — writes a 5-minute read and prepends it to the last one, so the file becomes a running memory of your quarter. Repurpose the content for your "optics" work such as leadership updates and self reviews.
+
 ## Why use it?
 
-A PM's context is scattered. Decisions happen in Slack, time goes to meetings, your own thinking lives in notes, and the work itself lands in git. By Friday it's a blur, and Monday starts with a scramble to reconstruct the week before you can plan the next one.
-
-**context-dump** compiles all of it into a single, scannable weekly brief — in one command.
-
-It doesn't just aggregate. It *grades the week* against your own goals:
+**context-dump** doesn't just aggregate your week. It *grades the week* against your own goals:
 
 - **LNO** — how much of your time was Leverage vs. Neutral vs. Overhead.
 - **Goal alignment** — which objectives got attention and which got none.
@@ -47,7 +52,7 @@ Slack and calendar steps need the matching MCP server connected; if one isn't av
 
 ## Landing page
 
-A walkthrough of what `context-dump` produces lives at [`index.html`](./index.html) (publishable via GitHub Pages).
+A walkthrough of what `context-dump` produces is live at **[christinexrz.github.io/skills](https://christinexrz.github.io/skills/)**, served via GitHub Pages from [`index.html`](./index.html).
 
 ---
 
