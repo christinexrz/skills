@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Skills for 10X PMs · Weekly context, on autopilot</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f5efe4;        /* warm cream paper */
+    --ink: #3d2817;            /* espresso brown */
+    --ink-soft: #7a6a57;
+    --ink-faint: #a89b8c;      /* taupe */
+    --line: #ece4d6;
+    --line-strong: #e4dccb;
+    --accent: #b55a30;         /* burnt sienna */
+    --accent-soft: #f7ebde;
+    --gold: #d4a01f;           /* golden amber — signature */
+    --gold-ink: #96700f;       /* deep gold for text */
+    --card: #ffffff;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(61,40,23,.05), 0 8px 28px rgba(61,40,23,.07);
+    --shadow-lg: 0 2px 4px rgba(61,40,23,.06), 0 18px 50px rgba(61,40,23,.11);
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--gold-ink); margin: 0 0 14px;
+  }
+  h1 { font-size: 50px; line-height: 1.08; letter-spacing: -.02em; margin: 0 0 18px; font-weight: 700; }
+  h2 { font-size: 28px; line-height: 1.2; letter-spacing: -.015em; margin: 0 0 10px; font-weight: 700; }
+  h3 { font-size: 16px; margin: 0 0 6px; font-weight: 600; }
+  p { margin: 0 0 16px; color: var(--ink-soft); font-size: 17px; }
+  .lead { font-size: 19px; color: var(--ink-soft); }
+  a { color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero { padding-top: 88px; text-align: left; }
+  .brand {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 14px; color: var(--ink-soft);
+    padding: 6px 12px 6px 8px; border: 1px solid var(--line-strong);
+    border-radius: 999px; margin-bottom: 36px; background: var(--bg-soft);
+  }
+  .brand .dot { width: 22px; height: 22px; border-radius: 7px; background: var(--accent); display: inline-flex; align-items: center; justify-content: center; }
+  .hero h1 .accent { color: var(--accent); }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .chip {
+    font-family: var(--mono); font-size: 13.5px; color: var(--ink);
+    background: var(--bg-soft); border: 1px solid var(--line-strong);
+    padding: 9px 14px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .chip .pr { color: var(--accent); }
+  .chip-slash { color: var(--ink-soft); }
+
+  /* ---------- sources / problem ---------- */
+  .sources {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 32px;
+  }
+  .src {
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 16px;
+    background: var(--card); box-shadow: var(--shadow); text-align: center;
+  }
+  .src svg { width: 26px; height: 26px; display: block; margin: 0 auto 10px; }
+  .src span { font-size: 13.5px; font-weight: 600; color: var(--ink-soft); }
+  .converge { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 26px 0 6px; color: var(--ink-faint); font-size: 14px; }
+  .converge .arrow { color: var(--accent); }
+  .out-pill {
+    display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px;
+    color: var(--ink); background: var(--accent-soft); border: 1px solid #e9cbb4;
+    padding: 8px 14px; border-radius: 999px;
+  }
+
+  /* ---------- how it works ---------- */
+  .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 28px; }
+  .step {
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 20px;
+    background: var(--card); box-shadow: var(--shadow);
+  }
+  .step .num {
+    width: 30px; height: 30px; border-radius: 8px; background: var(--bg-soft);
+    border: 1px solid var(--line-strong); display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: var(--accent); margin-bottom: 12px;
+  }
+  .step p { font-size: 14.5px; margin: 0; }
+
+  /* ---------- sample output card ---------- */
+  .doc {
+    border: 1px solid var(--line-strong); border-radius: 16px; background: var(--card);
+    box-shadow: var(--shadow-lg); overflow: hidden; margin-top: 30px;
+  }
+  .doc-bar { display: flex; align-items: center; gap: 7px; padding: 13px 16px; border-bottom: 1px solid var(--line); background: var(--bg-soft); }
+  .doc-bar i { width: 11px; height: 11px; border-radius: 50%; background: #e0d8c8; display: inline-block; }
+  .doc-bar .fname { margin-left: 8px; font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); }
+  .doc-body { padding: 26px 30px 30px; }
+  .doc-body .title { font-size: 21px; font-weight: 700; margin: 0 0 2px; letter-spacing: -.01em; }
+  .doc-body .gen { font-size: 13px; color: var(--ink-faint); margin: 0 0 20px; }
+  .doc h4 {
+    font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--ink-faint); margin: 22px 0 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .doc h4:first-of-type { margin-top: 0; }
+  .doc h4 svg { width: 15px; height: 15px; }
+  .doc ul, .doc ol { margin: 0; padding-left: 18px; }
+  .doc li { font-size: 14.5px; color: var(--ink); margin-bottom: 7px; }
+  .doc li .ch { color: var(--accent); font-weight: 600; }
+  .divider { height: 1px; background: var(--line); margin: 22px 0; border: 0; }
+
+  /* analysis group band heading */
+  .doc-group {
+    font-size: 15px; font-weight: 700; letter-spacing: -.01em; color: var(--accent);
+    margin: 26px 0 4px; padding-top: 18px; border-top: 1px solid var(--line-strong);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .doc-group svg { width: 16px; height: 16px; }
+
+  /* github activity */
+  .stat {
+    font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint);
+    margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 6px 10px;
+  }
+  .stat b { color: var(--ink-soft); font-weight: 600; }
+  .theme {
+    font-size: 13px; font-weight: 700; color: var(--ink); margin: 12px 0 4px;
+  }
+  .theme:first-of-type { margin-top: 0; }
+
+  /* lno verdict line */
+  .verdict {
+    font-size: 13px; font-style: italic; color: var(--ink-soft);
+    margin: 10px 0 0; padding-left: 12px; border-left: 2px solid var(--line-strong);
+  }
+
+  /* product work balance */
+  .balance { margin: 4px 0 0; }
+  .balance-row { display: flex; align-items: baseline; gap: 10px; font-size: 14.5px; margin-bottom: 8px; }
+  .balance-row .lbl { font-weight: 600; min-width: 78px; }
+  .balance-row .txt { color: var(--ink-soft); font-size: 13.5px; }
+
+  /* LNO bar */
+  .lno { margin: 4px 0 8px; }
+  .lno-track { display: flex; height: 26px; border-radius: 7px; overflow: hidden; border: 1px solid var(--line); }
+  .lno-track div { display: flex; align-items: center; justify-content: center; font-size: 11.5px; font-weight: 700; color: #fff; }
+  .lno-l { background: #5f7a4a; flex: 72; }
+  .lno-n { background: #d4a01f; flex: 18; }
+  .lno-o { background: #b55a30; flex: 10; }
+  .lno-key { display: flex; gap: 16px; margin-top: 9px; font-size: 12.5px; color: var(--ink-soft); }
+  .lno-key span { display: inline-flex; align-items: center; gap: 6px; }
+  .lno-key i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+
+  /* goal table */
+  table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  th, td { text-align: left; font-size: 13.5px; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--ink-faint); font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; }
+  td:first-child { font-weight: 600; }
+  .tag { font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 999px; }
+  .tag-ok { background: #e9efe1; color: #4a5d3f; }
+  .tag-gap { background: #f7e8de; color: #b55a30; }
+  .tag-heavy { background: #faf0d5; color: #96700f; }
+
+  /* ---------- value cards ---------- */
+  .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
+  .val { border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; background: var(--card); box-shadow: var(--shadow); }
+  .val svg { width: 24px; height: 24px; margin-bottom: 12px; }
+  .val p { font-size: 14px; margin: 0; }
+
+  /* ---------- footer cta ---------- */
+  .cta { text-align: center; }
+  .cta-card {
+    border: 1px solid var(--line-strong); border-radius: 18px; background: var(--bg-soft);
+    padding: 44px 32px; box-shadow: var(--shadow);
+  }
+  .install {
+    display: inline-flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 15px;
+    background: var(--ink); color: #fff; padding: 12px 12px 12px 20px; border-radius: 12px; margin: 18px 0 8px;
+  }
+  .install .pr { color: #e3a15a; }
+
+  /* copy button */
+  .copy-btn {
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; padding: 0; margin-left: 4px; flex: none;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    border-radius: 8px; color: #fff; cursor: pointer;
+    transition: background .2s, border-color .2s, transform .1s;
+  }
+  .copy-btn:hover { background: rgba(255,255,255,.2); }
+  .copy-btn:active { transform: scale(.92); }
+  /* the two stacked icons that crossfade on copy */
+  .copy-btn .ico {
+    position: absolute; inset: 0; display: inline-flex; align-items: center; justify-content: center;
+    transition: opacity .18s ease, transform .22s cubic-bezier(.3,1.5,.5,1);
+  }
+  .copy-btn .ico svg { width: 15px; height: 15px; }
+  .copy-btn .ico-check { opacity: 0; transform: scale(.4) rotate(-15deg); color: #3fbf78; }
+  .copy-btn.copied { background: rgba(63,191,120,.18); border-color: rgba(63,191,120,.5); }
+  .copy-btn.copied .ico-copy { opacity: 0; transform: scale(.4); }
+  .copy-btn.copied .ico-check { opacity: 1; transform: scale(1) rotate(0); }
+
+  /* light variant for the hero chip (light background) */
+  .copy-btn-light {
+    background: transparent; border-color: var(--line-strong); color: var(--ink-soft);
+    width: 26px; height: 26px; margin-left: 2px;
+  }
+  .copy-btn-light:hover { background: #fff; color: var(--accent); }
+  .copy-btn-light .ico svg { width: 14px; height: 14px; }
+  .copy-btn-light.copied { background: rgba(63,191,120,.13); border-color: rgba(63,191,120,.5); }
+  .repo-link { font-size: 14px; color: var(--ink-soft); }
+  footer { padding: 40px 0; text-align: center; color: var(--ink-faint); font-size: 13.5px; }
+
+  @media (max-width: 680px) {
+    h1 { font-size: 36px; }
+    .sources, .steps, .values { grid-template-columns: 1fr 1fr; }
+    .doc-body { padding: 20px; }
+    section { padding: 48px 0; }
+  }
+  @media (max-width: 460px) {
+    .sources, .steps, .values { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M4 13l5 5L20 6" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      Skills for 10X PMs
+    </div>
+    <p class="eyebrow">/Context-dump</p>
+    <h1>Make sense of all the <br><span class="accent">context switching</span></h1>
+    <p class="lead">PMs are like context routers. Your week is scattered across Slack, your calendar, meeting notes, and the team's commits. This skill pulls the fragmented work context into one short brief, checks against your goals, and evaluates how you can be more effective. </p>
+    <div class="chips">
+      <span class="chip"><span class="pr">npx</span> skills@latest add christinexrz/skills<button class="copy-btn copy-btn-light" data-copy="npx skills@latest add christinexrz/skills" aria-label="Copy install command"><span class="ico ico-copy"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V5a2 2 0 0 1 2-2h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="ico ico-check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 13l5 5L20 6" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></span>
+      <span class="chip"><span class="chip-slash">then just run</span> /context-dump</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM / SOURCES ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow"></p>
+    <h2>Collect fragmented context in one place</h2>
+    <p>Reconstructing context before you can plan the next week is its own job. /context-dump saves the cognitive load of distilling context across these main sources.</p>
+    <div class="sources">
+      <div class="src">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="10" y="2.5" width="4" height="9" rx="2" fill="#e01e5a"/><rect x="2.5" y="10" width="9" height="4" rx="2" fill="#36c5f0"/><rect x="12.5" y="12.5" width="4" height="9" rx="2" fill="#2eb67d"/><rect x="12.5" y="10" width="9" height="4" rx="2" fill="#ecb22e"/></svg>
+        <span>Slack</span>
+      </div>
+      <div class="src">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="16" rx="3" stroke="#3d2817" stroke-width="1.7"/><path d="M3 9h18" stroke="#3d2817" stroke-width="1.7"/><path d="M8 2.5v4M16 2.5v4" stroke="#3d2817" stroke-width="1.7" stroke-linecap="round"/><rect x="6.5" y="12" width="3" height="3" rx="1" fill="#b55a30"/></svg>
+        <span>Calendar</span>
+      </div>
+      <div class="src">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2.5" stroke="#3d2817" stroke-width="1.7"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4" stroke="#3d2817" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span>Notes</span>
+      </div>
+      <div class="src">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.5" stroke="#3d2817" stroke-width="1.7"/><circle cx="6" cy="18" r="2.5" stroke="#3d2817" stroke-width="1.7"/><circle cx="18" cy="9" r="2.5" stroke="#3d2817" stroke-width="1.7"/><path d="M6 8.5v7M6 15.5c8 0 10-2 10-4.5" stroke="#3d2817" stroke-width="1.7"/></svg>
+        <span>Git repos</span>
+      </div>
+    </div>
+    <div class="converge">
+      <span>4 scattered sources</span>
+      <span class="arrow">→</span>
+      <span class="out-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 13l5 5L20 6" stroke="#b55a30" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        one weekly brief
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SAMPLE OUTPUT ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">What you get</p>
+    <h2>A brief that thinks like a coach.</h2>
+    <p>The weeks often fly by like a blur. What did you really accomplish? Was it on the right thing? Did it move the needle or was it a waste of time? Where should you have focused your energy on? The brief gives you an assessment, not a raw activity log. Here's a trimmed example.</p>
+    <div class="doc">
+      <div class="doc-bar"><i></i><i></i><i></i><span class="fname">context-dump.md</span></div>
+      <div class="doc-body">
+        <div class="title">Weekly Context Dump: Jun 23 to Jun 30</div>
+        <div class="gen">Generated on Jun 30, 2026</div>
+
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none"><rect x="10" y="2.5" width="4" height="9" rx="2" fill="#e01e5a"/><rect x="2.5" y="10" width="9" height="4" rx="2" fill="#36c5f0"/><rect x="12.5" y="12.5" width="4" height="9" rx="2" fill="#2eb67d"/><rect x="12.5" y="10" width="9" height="4" rx="2" fill="#ecb22e"/></svg>
+          Slack highlights
+        </h4>
+        <ul>
+          <li>Migration scope for Q3 finalized and signed off <span class="ch">(#mission-team)</span></li>
+          <li>Streaming architecture decision landed, going with the chunked approach <span class="ch">(#web-scrum)</span></li>
+          <li>Open blocker: design backfill still unresolved, holding up mockups <span class="ch">(#design-sync)</span></li>
+        </ul>
+
+        <hr class="divider" />
+
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="16" rx="3" stroke="#a89b8c" stroke-width="1.7"/><path d="M3 9h18" stroke="#a89b8c" stroke-width="1.7"/><path d="M8 2.5v4M16 2.5v4" stroke="#a89b8c" stroke-width="1.7" stroke-linecap="round"/></svg>
+          Meeting notes
+        </h4>
+        <ul>
+          <li><span class="ch">Decision:</span> going with the chunked streaming approach after two deferred design reviews</li>
+          <li><span class="ch">Decision:</span> web + mobile releases will ship together to keep chat history consistent</li>
+          <li><span class="ch">Watch:</span> the Reports widget POC still has no named owner, blocking the spike</li>
+          <li><span class="ch">Watch:</span> code freeze July 15 — GA vs. alpha hinges on shipping before it</li>
+        </ul>
+
+        <hr class="divider" />
+
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.5" stroke="#a89b8c" stroke-width="1.7"/><circle cx="6" cy="18" r="2.5" stroke="#a89b8c" stroke-width="1.7"/><circle cx="18" cy="9" r="2.5" stroke="#a89b8c" stroke-width="1.7"/><path d="M6 8.5v7M6 15.5c8 0 10-2 10-4.5" stroke="#a89b8c" stroke-width="1.7"/></svg>
+          GitHub activity
+        </h4>
+        <div class="stat"><span><b>24</b> commits</span><span>·</span><span><b>6</b> PRs merged</span><span>·</span><span>latest release <b>v1.09.0</b></span></div>
+        <div class="theme">Features</div>
+        <ul>
+          <li>Added navigation trail to chat feed</li>
+          <li>Programmatic close for the chat panel</li>
+        </ul>
+        <div class="theme">Fixes</div>
+        <ul>
+          <li>Double rendering of xyz card in feed</li>
+          <li>Disable inner PDF viewer per the design call</li>
+        </ul>
+        <div class="theme">New releases</div>
+        <ul>
+          <li>v1.09.0 cut — features and renderer version bumps</li>
+        </ul>
+
+        <div class="doc-group">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 15l3-4 3 3 4-6" stroke="#b55a30" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Weekly Analysis &amp; Recommendations
+        </div>
+
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0Z" stroke="#a89b8c" stroke-width="1.7"/><path d="M12 7v5l3 2" stroke="#a89b8c" stroke-width="1.7" stroke-linecap="round"/></svg>
+          Time allocation (<a href="https://coda.io/@shreyas/lno-framework">LNO</a>)
+        </h4>
+        <div class="lno">
+          <div class="lno-track">
+            <div class="lno-l">Leverage 72%</div>
+            <div class="lno-n">Neutral 18%</div>
+            <div class="lno-o">10%</div>
+          </div>
+          <div class="lno-key">
+            <span><i style="background:#5f7a4a"></i> Leverage</span>
+            <span><i style="background:#d4a01f"></i> Neutral</span>
+            <span><i style="background:#b55a30"></i> Overhead</span>
+          </div>
+        </div>
+        <p class="verdict">Verdict: leverage held at 72%, just above your 70% target, a healthy week. Overhead is at the 10% line, so watch the status-chasing. The real risk is that so much leverage work happened in meetings rather than shareable artifacts.</p>
+
+        <hr class="divider" />
+
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14v16l-7-3-7 3V4Z" stroke="#a89b8c" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          Goal alignment
+        </h4>
+        <table>
+          <tr><th>Objective</th><th>This week</th><th>Status</th></tr>
+          <tr><td>Ship magicbox v2</td><td>Arch decision landed</td><td><span class="tag tag-ok">On track</span></td></tr>
+          <tr><td>3P connections</td><td>PRD iterated 4×</td><td><span class="tag tag-heavy">Heavy</span></td></tr>
+          <tr><td>Personal growth</td><td>No activity</td><td><span class="tag tag-gap">Gap</span></td></tr>
+        </table>
+
+        <hr class="divider" />
+
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 8l7-5 7 5M5 8v8l7 5 7-5V8" stroke="#a89b8c" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          Product work balance
+        </h4>
+        <div class="balance">
+          <div class="balance-row"><span class="lbl">Optics</span><span class="tag tag-ok">Solid</span><span class="txt">FY27 roadmap, design review, monthly doc all circulated to the right people</span></div>
+          <div class="balance-row"><span class="lbl">Execution</span><span class="tag tag-ok">Solid</span><span class="txt">Architecture decisions and fixes all landed</span></div>
+          <div class="balance-row"><span class="lbl">Impact</span><span class="tag tag-heavy">Watch</span><span class="txt">Metrics defined, but the POC is scoping, outcome deferred past July 15</span></div>
+        </div>
+
+        <hr class="divider" />
+
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 6l3 3 4-5M4 13l3 3 4-5M13 7h7M13 15h7" stroke="#a89b8c" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Recommended actions for next week
+        </h4>
+        <ol>
+          <li><strong>Lock a named owner for the widget POC</strong> — it's blocking across three separate entries.</li>
+          <li><strong>Write the PRFAQ and confirm the launch date</strong> — it's sat on the to-do list for days running.</li>
+          <li><strong>Turn the push/pull discussion into one decision doc</strong> — 5+ meetings, no single source of truth.</li>
+        </ol>
+
+        <hr class="divider" />
+
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 1 3 11c-.6.4-1 1-1 1.7H10c0-.7-.4-1.3-1-1.7A6 6 0 0 1 12 3Z" stroke="#b55a30" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          Things Claude can help with
+        </h4>
+        <ul>
+          <li>You've iterated on the 3P connections PRD 4× this week. Want me to consolidate it into a final draft?</li>
+          <li>Two design reviews deferred the same decision. I can write a decision doc to force it.</li>
+          <li>Objective 3 got zero attention. I can pull a short reading list to keep it on your radar.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2>Set it up in  minutes, run it anytime.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Onboard once</h3>
+        <p>The first run asks a few questions (your channels, calendar, notes folder, repos, and goals) to customize and set up the skill. No config file to hand-edit.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Gather the week</h3>
+        <p>Pulls the last 7 days of context from all the sources you set up and gives you a readable brief. </p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Analyze your effectiveness</h3>
+        <p>Checks your week against your goals and the 3 Levels of Product Work (Execution, Strategy, Optics - from Shreyas), shows where your time went and recommends how you can be more effective.</p>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <h3>One brief</h3>
+        <p>Writes a 5-minute read and prepends it to the last one, so the file becomes a running memory of your quarter. Repurpose the content for your "optics" work such as leadership updates and self reviews. </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALUE ============ -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Why every PM needs it</p>
+    <h2>Learn from your busy days, not get burried by context switching</h2>
+    <div class="values">
+      <div class="val">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14v16l-7-3-7 3V4Z" stroke="#b55a30" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <h3>Assesses your effectiveness</h3>
+        <p>It assesses your week to show you trends on how your time is spent and give actionable recommendations on things to watch.</p>
+      </div>
+      <div class="val">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#b55a30" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="#b55a30" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <h3>A 5-minute read</h3>
+        <p>When all the slack messages and meetings are consolidated in one place, you'll catch patterns and signals and sometimes even important decisions you've missed.</p>
+      </div>
+      <div class="val">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2.5" stroke="#b55a30" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#b55a30" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <h3>A running quarter memory</h3>
+        <p>Every dump prepends to the last. You can run further analysis over months to extract more learnings or repurpose for self reviews.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-card">
+      <p class="eyebrow" style="margin-bottom:6px;">Get started</p>
+      <h2>One command. Then never scramble again.</h2>
+      <div class="install"><span><span class="pr">npx</span> skills@latest add christinexrz/skills</span><button class="copy-btn" data-copy="npx skills@latest add christinexrz/skills" aria-label="Copy install command"><span class="ico ico-copy"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V5a2 2 0 0 1 2-2h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="ico ico-check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 13l5 5L20 6" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+      <div class="repo-link">Works with Claude Code and any agent that supports <a href="https://skills.sh">skills</a> · <a href="https://github.com/christinexrz/skills">github.com/christinexrz/skills</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built by Christine Zhu · Skills for 10X PMs
+</footer>
+
+<script>
+  (function () {
+    function fallback(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    function copy(text, done) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
+      } else {
+        fallback(text);
+        done();
+      }
+    }
+    document.querySelectorAll('[data-copy]').forEach(function (btn) {
+      var timer;
+      btn.addEventListener('click', function () {
+        copy(btn.getAttribute('data-copy'), function () {
+          btn.classList.add('copied');
+          clearTimeout(timer);
+          timer = setTimeout(function () { btn.classList.remove('copied'); }, 1600);
+        });
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

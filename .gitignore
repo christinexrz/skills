@@ -1,0 +1,6 @@
+# Per-user skill config — never commit
+**/config.local.md
+
+# OS cruft
+.DS_Store
+Thumbs.db
