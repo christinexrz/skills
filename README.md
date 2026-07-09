@@ -2,11 +2,13 @@
 
 [![skills.sh](https://skills.sh/b/christinexrz/skills)](https://skills.sh/christinexrz/skills)
 
-https://christinexrz.github.io/skills/
+> Weekly context, on autopilot.
 
-For 10X PMs and builders who want to increase leverage in their work by using AI for administrative work, think with greater clarity, and focus on the right things. 
+A small collection of agent skills for product managers. Each one automates the busywork that eats a PM's week — reconstructing what happened, chasing context across tools, writing the recap — so the time you keep goes to the part only you can do: deciding what matters next.
 
-/context-dump skill pulls fragmented work context across Slack, meetings, etc into one short brief, checks it against your goals, and evaluates how you can be more effective. 
+The bet is simple. AI doesn't replace a PM's judgment; it amplifies it. A 10X PM isn't one who works 10x harder. It's one who spends zero minutes on the things a machine should do, and all of them on the things it can't.
+
+These skills are built from real PM workflow, then generalized so anyone can drop them in.
 
 ## Install
 
@@ -16,15 +18,21 @@ npx skills@latest add christinexrz/skills
 
 This works with any agent that supports the [skills](https://skills.sh) format (Claude Code, etc.). It pulls every skill in this repo into your agent.
 
-## How /context-dump works
+## Why use it?
 
-1. **Onboard once** — the first run asks a few questions (your channels, calendar, notes folder, repos, and goals) to customize and set up the skill. No config file to hand-edit.
-2. **Gather the week** — pulls the last 7 days of context from Slack, Calendar, Notes, and Git repos — the 4 scattered sources that make up a PM's week — into one readable brief.
-3. **Analyze your effectiveness** — checks your week against your goals and the 3 Levels of Product Work (Execution, Strategy, Optics — from Shreyas), shows where your time went, and recommends how you can be more effective.
-4. **Review brief** — writes a 5-minute read in HTML and prepends it to the last one, so the file becomes a running memory of your quarter. Repurpose the content for your "optics" work such as leadership updates and self reviews.
+A PM's context is scattered. Decisions happen in Slack, time goes to meetings, your own thinking lives in notes, and the work itself lands in git. By Friday it's a blur, and Monday starts with a scramble to reconstruct the week before you can plan the next one.
 
-The brief reads like a coach/mentor. It gives an analysis on how well you spent your time (using Shreyas's LNO concept), and gives recommendations on the most impactful work you should be focusing on. It proposes concrete next actions and notices patterns a thoughtful colleague would ("you've iterated on the same PRD four times this week, want me to draft it?").
+**context-dump** compiles all of it into a single, scannable weekly brief — in one command.
 
+It doesn't just aggregate. It *grades the week* against your own goals:
+
+- **LNO** — how much of your time was Leverage vs. Neutral vs. Overhead.
+- **Goal alignment** — which objectives got attention and which got none.
+- **3 Levels of Product Work** — are you balancing Optics, Execution, and Impact, or neglecting one?
+
+Then it proposes concrete next actions and notices patterns a thoughtful colleague would ("you've iterated on the same PRD four times this week — want me to draft it?").
+
+The brief is a **styled, self-contained HTML file** — the visual you see on the landing page is the actual output. Each dump is prepended as a new card on top of the last, so the file becomes a **running memory of your quarter** you can open in any browser, not a one-off you lose track of.
 
 ## Reference
 
@@ -33,9 +41,15 @@ The brief reads like a coach/mentor. It gives an analysis on how well you spent 
 
 ## Configuration
 
-The first time you run a skill it onboards you with a few questions (which Slack channels, calendar source, notes folder, repos, your goals) and writes the answers to a per-user `config.local.md` next to the skill. That file is **gitignored and never shared**, it's just yours. See [`config.example.md`](./skills/context-dump/config.example.md) for the format, and delete `config.local.md` anytime to re-onboard.
+The first time you run a skill it onboards you with a few questions (which Slack channels, calendar source, notes folder, repos, your goals) and writes the answers to a per-user `config.local.md` next to the skill. That file is **gitignored and never shared** — it's just yours. See [`config.example.md`](./skills/context-dump/config.example.md) for the format, and delete `config.local.md` anytime to re-onboard.
+
+That first run also checks whether the skill (or your configured output file) lives inside a git repo, and if so adds `config.local.md` and the output HTML file to that repo's `.gitignore` if they're missing — so personal data doesn't end up committed by accident. Worth a quick manual check of your `.gitignore` if you're installing into an existing tracked project.
 
 Slack and calendar steps need the matching MCP server connected; if one isn't available, the skill notes it and continues with the other sources.
+
+## Landing page
+
+A walkthrough of what `context-dump` produces lives at [`index.html`](./index.html) (publishable via GitHub Pages).
 
 ---
 

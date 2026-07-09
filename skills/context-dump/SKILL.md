@@ -2,7 +2,7 @@
 name: context-dump
 description: Generate a weekly context dump for a PM — a consolidated summary of the last 7 days across Slack, calendar meetings, dated notes, and one or more git repos, plus PM-framework analysis (LNO, goal alignment, 3 levels of product work). Use when the user runs /context-dump or asks for a weekly summary / context dump. On first run it onboards the user with a few questions and saves their setup so future runs are one command.
 user-invocable: true
-allowed-tools: Bash, Read, Write, Glob, Grep, AskUserQuestion, mcp__claude_ai_Slack__slack_read_channel, mcp__claude_ai_Slack__slack_search_channels, mcp__claude_ai_Microsoft_365__outlook_calendar_search, mcp__claude_ai_Microsoft_365__read_resource, mcp__claude_ai_Google_Calendar__list_events
+allowed-tools: Read, Write, Edit, Glob, Grep, AskUserQuestion, Bash(git fetch:*), Bash(git log:*), Bash(git tag:*), Bash(git rev-parse:*), mcp__claude_ai_Slack__slack_read_channel, mcp__claude_ai_Slack__slack_search_channels, mcp__claude_ai_Microsoft_365__outlook_calendar_search, mcp__claude_ai_Microsoft_365__read_resource, mcp__claude_ai_Google_Calendar__list_events
 ---
 
 # Weekly Context Dump
@@ -29,7 +29,14 @@ First, locate this skill's directory (the folder containing this `SKILL.md` — 
   5. **Git repo(s)** — one or more repo paths. For each, optionally a ticket prefix (e.g. `GUX-`) and custom commit categories. Or skip.
   6. **Goals/objectives** — paste the user's current objectives, or a path to a goals doc, for the goal-alignment analysis.
 
-  Then write `config.local.md` in this skill's directory using the structure from `config.example.md`, stamping `generated:` with today's date. Confirm what was saved, and tell the user they can edit `config.local.md` anytime or delete it to re-onboard. Then proceed to Step 1.
+  Then write `config.local.md` in this skill's directory using the structure from `config.example.md`, stamping `generated:` with today's date. Confirm what was saved, and tell the user they can edit `config.local.md` anytime or delete it to re-onboard.
+
+  **Gitignore safety check** (runs once here, not on later runs). `config.local.md` and the output HTML file can both hold personal data (Slack summaries, meeting notes, goals). For each of (a) this skill's own directory and (b) the configured output path, run `git -C <dir> rev-parse --show-toplevel` to find the nearest enclosing repo root.
+  - If neither resolves to a repo (e.g. the default `~/context-dump.html` sits outside any repo), skip silently — nothing to protect.
+  - If a repo root is found, check its `.gitignore` for an entry covering `config.local.md` and one covering the output file's basename (e.g. `context-dump.html`). Create `.gitignore` if it doesn't exist; otherwise only append whichever entries are missing — never rewrite existing content. If the skill directory and output path share the same repo root, add each entry only once.
+  - Tell the user what was added, e.g. "Added `config.local.md` and `context-dump.html` to `.gitignore` in `<repo>` so this stays local." Say nothing extra if both entries were already covered.
+
+  Then proceed to Step 1.
 
 ## Step 1: Gather Slack Highlights
 
@@ -76,8 +83,10 @@ git log --since="7 days ago" --oneline --all
 Also check for new tags in the last 7 days:
 
 ```bash
-git tag --sort=-creatordate | head -5
+git tag --sort=-creatordate
 ```
+
+Only use the first 5 lines of the output for "New releases."
 
 Group commits using the repo's configured `categories`. If none are configured, fall back to grouping by conventional-commit type (**Features**, **Fixes**, **Chores/Infra**, **Tests/DevX**, **Other**). Skip empty groups.
 
